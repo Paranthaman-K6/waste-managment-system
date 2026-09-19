@@ -16,6 +16,8 @@ def _engine_kwargs(url: str) -> dict:
     # Detect postgres by URL prefix — covers postgresql+asyncpg and postgresql+psycopg
     if url.startswith("postgresql") or url.startswith("postgres"):
         kwargs["connect_args"] = {"timeout": 10}
+    elif url.startswith("sqlite"):
+        kwargs["connect_args"] = {"check_same_thread": False}
     return kwargs
 
 

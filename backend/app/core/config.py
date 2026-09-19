@@ -7,9 +7,9 @@ from pydantic import Field
 
 
 class Settings(BaseSettings):
-    # Core settings
-    DATABASE_URL: str = Field(...)
-    JWT_SECRET_KEY: str = Field(...)
+    # Core settings (defaults to SQLite for zero-config deployment)
+    DATABASE_URL: str = "sqlite+aiosqlite:///./test.db"
+    JWT_SECRET_KEY: str = "dev-secret-change-in-production"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
@@ -66,4 +66,3 @@ settings = Settings()
 
 def get_settings() -> Settings:
     return settings
-

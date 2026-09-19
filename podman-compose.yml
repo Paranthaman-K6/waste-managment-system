@@ -14,16 +14,17 @@ services:
       REFRESH_TOKEN_EXPIRE_DAYS: ${REFRESH_TOKEN_EXPIRE_DAYS:-7}
       UPLOAD_DIR: /app/uploads
       PYTHONPATH: /app
+      PORT: ${PORT:-8000}
     volumes:
       - sqlite_data:/app/data
       - upload_data:/app/uploads
     ports:
-      - "8000:8000"
+      - "${PORT:-8000}:8000"
     expose:
       - "8000"
-    command: sh -c "mkdir -p /app/data && python -m alembic -c alembic.ini upgrade head && python -m app.db.seed_demo && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    command: sh -c "mkdir -p /app/data && python -m alembic -c alembic.ini upgrade head && python -m app.db.seed_demo && uvicorn app.main:app --host 0.0.0.0 --port $${PORT:-8000}"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD-SHELL", "curl -f http://localhost:$${PORT:-8000}/health || curl -f http://localhost:8000/health"]
       interval: 10s
       timeout: 5s
       retries: 5

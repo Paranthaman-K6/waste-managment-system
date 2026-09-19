@@ -1,4 +1,4 @@
-# Deployment — Podman Single-File + Render
+# Deployment — Podman Single-File + Render + Voroa
 
 > `podman-compose.yml` **canonical** (no `docker-compose.yml`) `Caddy :8080` `Uploads /app/uploads` `AUTO_SEED=1`
 
@@ -6,12 +6,30 @@
 
 | Env | URL | Branch | Service | Health | Deploy Via |
 |-----|-----|--------|---------|--------|------------|
+| **Prod (Voroa)** | [`https://wms.getvoroa.com`](https://wms.getvoroa.com) | `main` | `m5fvvcz9koscx5bn5v185vq7` / `wms-141f` `1z4u1jfw8ylpdtchohdnxzkp` | [`/health`](https://wms.getvoroa.com/health) [`/docs`](https://wms.getvoroa.com/docs) | `MCP https://api.getvoroa.com/mcp` `voroa_redeploy` |
 | **Prod (Render)** | [`https://waste-managment-system-873w.onrender.com`](https://waste-managment-system-873w.onrender.com) | `main` | `srv-dabh7gm1egvs73c3l10g` `python free oregon` | [`/health`](https://waste-managment-system-873w.onrender.com/health) [`/docs`](https://waste-managment-system-873w.onrender.com/docs) [`/analytics`](https://waste-managment-system-873w.onrender.com/analytics) | `MCP https://mcp.render.com/mcp` `POST /v1/services/.../deploys` |
 | **Local Podman** | [`http://localhost:8080`](http://localhost:8080) | `main` | `podman-compose.yml` `backend:8000` `frontend:80` `caddy:8080` | `http://localhost:8000/health` | `podman-compose up -d --build` |
 | **Local Vite** | [`http://localhost:5173`](http://localhost:5173) | `main` | `vite proxy` | `http://127.0.0.1:8000/health` | `./start.sh` |
-| **Dashboard** | [`https://dashboard.render.com/web/srv-dabh7gm1egvs73c3l10g`](https://dashboard.render.com/web/srv-dabh7gm1egvs73c3l10g) | `main` | `Render` | — | `MCP rnd_kxyrKFGt` |
+| **Dashboard (Voroa)** | [`https://app.getvoroa.com`](https://app.getvoroa.com) | `main` | `Voroa` | — | `MCP voroa_list_services` |
+| **Dashboard (Render)** | [`https://dashboard.render.com/web/srv-dabh7gm1egvs73c3l10g`](https://dashboard.render.com/web/srv-dabh7gm1egvs73c3l10g) | `main` | `Render` | — | `MCP rnd_kxyrKFGt` |
 
 > **Quick Live Check:** `curl https://waste-managment-system-873w.onrender.com/health # {"status":"ok"}` `curl https://waste-managment-system-873w.onrender.com/user/bins -H "Authorization: Bearer $TOKEN" | jq`
+
+## Voroa (MCP https://api.getvoroa.com/mcp)
+
+- **Service:** `wms` (`1z4u1jfw8ylpdtchohdnxzkp` / `wms-141f.getvoroa.com` & `m5fvvcz9koscx5bn5v185vq7` / `wms.getvoroa.com`)
+- **Root Directory:** `/` (repo root)
+- **Branch:** `main`
+- **Build Command:** `pip install -r backend/requirements.txt && pip install "pydantic[email]" python-multipart && npm install && npm run build`
+- **Start Command:** `PYTHONPATH=backend python -m app.db.seed_demo; uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
+- **Health Check:** `/health`
+- **Database:** SQLite (default `sqlite+aiosqlite:///./test.db`, zero-config) or PostgreSQL (via `DATABASE_URL`)
+- **Required Env:**
+  - `DATABASE_URL`: `sqlite+aiosqlite:///./test.db` (or omit to use default SQLite)
+  - `JWT_SECRET_KEY`: `supersecretkey` (or `<32-char-random-key>`)
+  - `UPLOAD_DIR`: `/app/uploads` (or `./uploads`)
+  - `VITE_API_URL`: `""` (single-port SPA mount via `backend/app/main.py:115-161`)
+  - `PYTHONPATH`: `backend`
 
 ## Podman (prod-like)
 
