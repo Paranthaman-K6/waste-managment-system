@@ -1,6 +1,9 @@
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
-from app.core.config import get_settings
+try:
+    from app.core.config import get_settings
+except ModuleNotFoundError:
+    from backend.app.core.config import get_settings
 
 settings = get_settings()
 
