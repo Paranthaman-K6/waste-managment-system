@@ -61,20 +61,24 @@ app.include_router(rewards.router)
 app.include_router(vouchers.router)
 @app.on_event("startup")
 async def on_startup():
-    # Create tables if they don't exist (simple sync for demo purposes)
-    from sqlmodel import SQLModel
-    from sqlalchemy import text
-    async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
-        # Backfill legacy rows where accepted_waste_types is NULL (project data)
-        try:
-            await conn.execute(text("UPDATE public_bins SET accepted_waste_types='[]' WHERE accepted_waste_types IS NULL"))
-        except Exception:
-            pass
-        try:
-            await conn.execute(text("UPDATE recyclers SET accepted_waste_types='[]' WHERE accepted_waste_types IS NULL"))
-        except Exception:
-            pass
+    # Create tables if they don't exist (simple sync for demo purposes) — resilient for Voroa single-instance sqlite
+    try:
+        from sqlmodel import SQLModel
+        from sqlalchemy import text
+        async with engine.begin() as conn:
+            await conn.run_sync(SQLModel.metadata.create_all)
+            # Backfill legacy rows where accepted_waste_types is NULL (project data)
+            try:
+                await conn.execute(text("UPDATE public_bins SET accepted_waste_types='[]' WHERE accepted_waste_types IS NULL"))
+            except Exception as e:
+                print(f"[startup] backfill public_bins skipped: {e}")
+            try:
+                await conn.execute(text("UPDATE recyclers SET accepted_waste_types='[]' WHERE accepted_waste_types IS NULL"))
+            except Exception as e:
+                print(f"[startup] backfill recyclers skipped: {e}")
+        print("[startup] DB ready")
+    except Exception as e:
+        print(f"[startup] DB init failed (will still serve health): {e}")
     # Auto-seed demo data if DB is empty (ensures Mass Recycled KPI shows 25kg after sqlite wipe / Render redeploy)
     # Set AUTO_SEED=0 to disable for production with real data
     if os.getenv("AUTO_SEED", "1") != "0":
@@ -82,6 +86,7 @@ async def on_startup():
             from app.db.seed_demo import seed_all
 
             await seed_all()
+            print("[startup] seed completed")
         except Exception as e:
             print(f"[startup] auto-seed skipped: {e}")
 
