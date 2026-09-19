@@ -61,6 +61,12 @@ app.include_router(rewards.router)
 app.include_router(vouchers.router)
 @app.on_event("startup")
 async def on_startup():
+    print(f"[startup] cwd={Path.cwd()} file={__file__} DATABASE_URL={settings.DATABASE_URL} UPLOAD_DIR={settings.UPLOAD_DIR} PORT={os.getenv('PORT')}")
+    try:
+        dist_check = Path(__file__).resolve().parents[2] / "apps" / "web" / "dist"
+        print(f"[startup] dist exists={dist_check.exists()} at {dist_check} cwd_dist={(Path.cwd() / 'apps' / 'web' / 'dist').exists()}")
+    except Exception as e:
+        print(f"[startup] dist check failed: {e}")
     # Create tables if they don't exist (simple sync for demo purposes) — resilient for Voroa single-instance sqlite
     try:
         from sqlmodel import SQLModel
