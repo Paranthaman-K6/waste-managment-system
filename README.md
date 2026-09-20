@@ -26,22 +26,6 @@
 
 ---
 
-## 📸 Live Screenshots
-
-### Home — Sign In
-- Desktop: ![Homepage (desktop)](apps/web/tests/screenshots/homepage-desktop.png)
-- Mobile: ![Homepage (mobile)](apps/web/tests/screenshots/homepage-mobile.png)
-
-### Portals (role switch)
-| Role | Desktop | Mobile |
-|------|---------|--------|
-| Resident (`user`) | ![Resident portal (desktop)](apps/web/tests/screenshots/resident-portal-desktop.png) | ![Resident portal (mobile)](apps/web/tests/screenshots/resident-portal-mobile.png) |
-| Collector (`collector`) | ![Collector portal (desktop)](apps/web/tests/screenshots/collector-portal-desktop.png) | ![Collector portal (mobile)](apps/web/tests/screenshots/collector-portal-mobile.png) |
-| Recycler (`recycler`) | ![Recycler portal (desktop)](apps/web/tests/screenshots/recycler-portal-desktop.png) | ![Recycler portal (mobile)](apps/web/tests/screenshots/recycler-portal-mobile.png) |
-| Admin (`management`) | ![Admin portal (desktop)](apps/web/tests/screenshots/admin-portal-desktop.png) | ![Admin portal (mobile)](apps/web/tests/screenshots/admin-portal-mobile.png) |
-
----
-
 ## ✨ Key Features
 
 | Role | Portal | Capabilities |
