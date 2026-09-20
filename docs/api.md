@@ -2,6 +2,8 @@
 
 > `FastAPI 0.141` `SQLModel` `pydantic[email]` `python-multipart` `Argon2` `python-jose` `SlowAPI 5/min`
 
+**Live:** [`https://wms.getvoroa.com`](https://wms.getvoroa.com) `health /health` `docs /docs` `openapi /openapi.json`
+
 **Base:** `VITE_API_URL=""` → same-port via Vite `proxy` (`5173→8000`) + Caddy `:8080` (`handle /auth* → backend:8000`) + Render `uvicorn` single-port `dist` + `StaticFiles(/uploads)` `Cache-Control: public immutable` for `/assets`, `no-cache` for `/`.
 
 **Auth:** `POST /auth/login {username,password} → {access_token, refresh_token, role, token_type}` `OAuth2PasswordBearer(tokenUrl=/auth/login)` `Authorization: Bearer` `localStorage wm_*` `backend/app/api/auth.py:21` `POST /auth/register` resident-only `UserRole.USER` `POST /auth/refresh` `GET /auth/me` `POST /auth/logout` (revoke).

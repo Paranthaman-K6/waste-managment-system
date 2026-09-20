@@ -4,6 +4,10 @@
 
 **Single portal** `apps/web:5173` `App.tsx:116 role switch` `AppShell` `Sidebar + Drawer` `Bottom Nav ≤5`. Previous 4-port `four-separate-login-panel-model` branch.
 
+**Live:** [`https://wms.getvoroa.com`](https://wms.getvoroa.com) (sign in: `admin` / `admin123`)
+
+## Screenshots
+
 ## Lazy & Chunks
 
 `App.tsx:19 React.lazy(() => import('./features/resident/ResidentDashboard'))` `Suspense fallback={<LoadingScreen/>}` `ErrorBoundary` per `App.tsx:34` `withSuspense` + `chunk-reload` auto-reload on `Failed to fetch dynamically imported module`. `vite.config.ts:16 manualChunks(id) → react-vendor(194k) | leaflet(148k) | charts` `BinMap 20k`.

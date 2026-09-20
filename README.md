@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Stack-FastAPI%20%7C%20React%2019%20%7C%20Vite%208-4a7c59?style=for-the-badge" alt="Stack" />
   <img src="https://img.shields.io/badge/Portal-5173%20%2F%208000-4a7c59?style=for-the-badge" alt="Portal" />
   <img src="https://img.shields.io/badge/Tests-20%20passed-4a7c59?style=for-the-badge" alt="Tests" />
-  <img src="https://img.shields.io/badge/License-MIT-b7472a?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/Live-wms.getvoroa.com-4a7c59?style=for-the-badge" alt="Live" />
 </p>
 
 <p align="center">
@@ -23,6 +23,16 @@
 > *Waste is material, not trash.* Reclaim routes every kilogram from household → collector fleet → recycler proof → city analytics. One `npm` workspace, one `5173` portal, one `8000` API.
 
 **Theme:** *Botanical Garden* — Fern `#4a7c59` (primary), Marigold `#f9a620` (accent), Terracotta `#b7472a` (warm), Cream `#f5f3ed` (paper). Built for `Forest Canopy`-grade sustainability storytelling.
+
+---
+
+## 📸 Live Screenshots
+
+### Home — Sign In
+![Homepage](apps/web/tests/screenshots/homepage.png)
+
+### Admin Dashboard
+![Dashboard](apps/web/tests/screenshots/dashboard.png)
 
 ---
 
@@ -154,7 +164,7 @@ Self-register `Create account` is **resident-only**; `collector/recycler/admin` 
 | `/recycler` | `recycler.py:19` | `GET /batches` `GET /batches/my` `POST /batches/{id}/request` `POST /batches/{id}/accept` `POST /batches/{id}/proof` `GET /analytics/summary` |
 | `/management` | `management.py:26` | `GET /dashboard/summary` `POST /bins` `GET /bins` `POST /users` `DELETE /users/{id}` `POST /reports/{type}` `GET /reports` |
 | `/rewards` | `rewards.py:9` | `GET /rates` `GET /balance` `GET /history` |
-| `/vouchers` | `vouchers.py:18` | `GET /vouchers` `GET /all` `POST /redeem/{id}` `POST /` `PATCH /{id}` `DELETE` |
+| `/vouchers` | `vouchers.py:18` | `GET /vouchers` `GET /all` `POST /redeem/{id}` `POST /` `PATCH /{id}` `DELETE` `GET /redemptions` `PATCH /redemptions/{id} {issued,cancelled}` |
 | | `main.py:88` | `GET /health {"status":"ok"}` `GET /docs` `/redoc` `/openapi.json` `GET /uploads/*` `GET /* → index.html` (SPA fallback) |
 
 **Auth:** `Authorization: Bearer <access_token>` `localStorage wm_access_token/refresh_token/role` `packages/shared/src/auth.tsx`.
@@ -214,7 +224,7 @@ docs/                    architecture, api, deployment, development, database, f
 |-----|---------|
 | `docs/architecture.md` | C4, containers, monorepo, data flow |
 | `docs/api.md` | 7 routers, auth, RBAC, schemas |
-| `docs/deployment.md` | Podman, Render, Nginx/Caddy, ENV |
+| `docs/deployment.md` | Podman, Render, Nginx/Caddy, ENV, Voroa MCP |
 | `docs/development.md` | Setup, scripts, testing |
 | `docs/database.md` | Models, Alembic, seed, sqlite vs postgres |
 | `docs/frontend.md` | Portal, lazy chunks, BinMap, pinpoint |
@@ -225,4 +235,3 @@ docs/                    architecture, api, deployment, development, database, f
 ## 📝 License & Credits
 
 `MIT` `LICENSE` • `Reclaim MRF-01 • Chennai` • Stack: `FastAPI` `React` `Vite` `Tailwind` `Leaflet` `Podman` • Icons `Lucide` • Fonts `Space Grotesk / Instrument Sans / JetBrains Mono` • Theme `Botanical Garden` `Fern #4a7c59 / Marigold #f9a620`.
-

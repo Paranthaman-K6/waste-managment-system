@@ -6,6 +6,8 @@
 
 One `5173` portal, one `8000` API, four roles. `user1` `collector1` `recycler1` `admin` via `POST /auth/login` JSON → `role`-switched `AppShell`. `SQLite` dev `./test.db` → `Postgres` prod, `AUTO_SEED=1` survives `down -v` / Render ephemeral with `25kg` demo.
 
+**Live:** [`https://wms.getvoroa.com`](https://wms.getvoroa.com) `health /health` `MCP voroa` `Dockerfile /` `PYTHONPATH=/app:/app/backend` `branch main`.
+
 ## 2. System Context (C4 L1)
 
 ```mermaid
