@@ -37,7 +37,7 @@
 
 ---
 
-## 🧱 Tech Stack (verified via Context7)
+## 🧱 Tech Stack
 
 | Layer | Choice | Why |
 |-------|--------|-----|
@@ -214,7 +214,7 @@ docs/                    architecture, api, deployment, development, database, f
 |-----|---------|
 | `docs/architecture.md` | C4, containers, monorepo, data flow |
 | `docs/api.md` | 7 routers, auth, RBAC, schemas |
-| `docs/deployment.md` | Podman, Render, Nginx/Caddy, ENV, Voroa MCP |
+| `docs/deployment.md` | Podman, Render, Nginx/Caddy, ENV, deployment configuration |
 | `docs/development.md` | Setup, scripts, testing |
 | `docs/database.md` | Models, Alembic, seed, sqlite vs postgres |
 | `docs/frontend.md` | Portal, lazy chunks, BinMap, pinpoint |
