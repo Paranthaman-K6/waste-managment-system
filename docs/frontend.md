@@ -8,6 +8,13 @@
 
 ## Screenshots
 
+| Role | Desktop | Mobile |
+|------|---------|--------|
+| Resident (`user`) | ![Resident portal (desktop)](../apps/web/tests/screenshots/resident-portal-desktop.png) | ![Resident portal (mobile)](../apps/web/tests/screenshots/resident-portal-mobile.png) |
+| Collector (`collector`) | ![Collector portal (desktop)](../apps/web/tests/screenshots/collector-portal-desktop.png) | ![Collector portal (mobile)](../apps/web/tests/screenshots/collector-portal-mobile.png) |
+| Recycler (`recycler`) | ![Recycler portal (desktop)](../apps/web/tests/screenshots/recycler-portal-desktop.png) | ![Recycler portal (mobile)](../apps/web/tests/screenshots/recycler-portal-mobile.png) |
+| Admin (`management`) | ![Admin portal (desktop)](../apps/web/tests/screenshots/admin-portal-desktop.png) | ![Admin portal (mobile)](../apps/web/tests/screenshots/admin-portal-mobile.png) |
+
 ## Lazy & Chunks
 
 `App.tsx:19 React.lazy(() => import('./features/resident/ResidentDashboard'))` `Suspense fallback={<LoadingScreen/>}` `ErrorBoundary` per `App.tsx:34` `withSuspense` + `chunk-reload` auto-reload on `Failed to fetch dynamically imported module`. `vite.config.ts:16 manualChunks(id) → react-vendor(194k) | leaflet(148k) | charts` `BinMap 20k`.
